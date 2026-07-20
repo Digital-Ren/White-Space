@@ -1,264 +1,91 @@
-// CLOCK
+// PARTICLES
 
-function updateClock() {
-
-    const now = new Date();
-
-    const time = now.toLocaleTimeString("en-US", {
-        timeZone: "Asia/Riyadh",
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit",
-        hour12: true
-    });
-
-    document.getElementById("clock").textContent = time;
-
-}
+const container = document.getElementById("particles");
 
 
-
-function updateCalendar() {
-
-    const now = new Date();
-
-    const date = now.toLocaleDateString("en-US", {
-        timeZone: "Asia/Riyadh",
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric"
-    });
-
-    document.getElementById("calendar").textContent = date;
-
-}
+for (let i = 0; i < 40; i++) {
 
 
-updateClock();
-updateCalendar();
-
-setInterval(updateClock, 1000);
+    const particle = document.createElement("div");
 
 
+    particle.classList.add("particle");
 
 
-// COUNTDOWN SYSTEM
-
-let countdowns =
-JSON.parse(localStorage.getItem("countdowns")) || [];
+    particle.style.left =
+    Math.random() * 100 + "vw";
 
 
+    particle.style.top =
+    Math.random() * 100 + "vh";
 
-function saveCountdowns() {
 
-    localStorage.setItem(
-        "countdowns",
-        JSON.stringify(countdowns)
-    );
+    particle.style.animationDuration =
+    8 + Math.random() * 10 + "s";
+
+
+    particle.style.animationDelay =
+    Math.random() * 8 + "s";
+
+
+    container.appendChild(particle);
 
 }
 
 
 
 
-function displayCountdowns() {
+// MUSIC
 
-    const container =
-    document.getElementById("countdowns");
+const music =
+document.getElementById("bgMusic");
 
 
-    container.innerHTML = "";
+music.volume = 0.05;
 
 
+document.addEventListener("click", async () => {
 
-    countdowns.forEach((item, index) => {
+    await music.play();
 
+}, { once:true });
 
-        const target =
-        new Date(item.date);
 
 
-        const now =
-        new Date();
 
 
-        const difference =
-        target - now;
 
+// DOOR
 
+const door =
+document.getElementById("door");
 
-        let result;
 
 
+window.addEventListener("pageshow", () => {
 
-        if (difference > 0) {
-
-
-            const days =
-            Math.floor(
-                difference / (1000 * 60 * 60 * 24)
-            );
-
-
-            const hours =
-            Math.floor(
-                (difference / (1000 * 60 * 60)) % 24
-            );
-
-
-            const minutes =
-            Math.floor(
-                (difference / (1000 * 60)) % 60
-            );
-
-
-            const seconds =
-            Math.floor(
-                (difference / 1000) % 60
-            );
-
-
-            result =
-            `${item.name}: ${days}d ${hours}h ${minutes}m ${seconds}s`;
-
-
-        } else {
-
-
-            result =
-            `${item.name}: Finished`;
-
-
-        }
-
-
-
-        const box =
-        document.createElement("div");
-
-
-        const text =
-        document.createElement("p");
-
-
-        text.textContent = result;
-
-
-
-        const deleteButton =
-        document.createElement("button");
-
-
-        deleteButton.textContent = "×";
-
-
-
-        deleteButton.onclick = () => {
-
-
-            countdowns.splice(index, 1);
-
-
-            saveCountdowns();
-
-
-            displayCountdowns();
-
-
-        };
-
-
-
-        box.appendChild(text);
-
-        box.appendChild(deleteButton);
-
-
-        container.appendChild(box);
-
-
-    });
-
-
-}
-
-
-
-
-document
-.getElementById("addCountdown")
-.addEventListener("click", () => {
-
-
-    const name =
-    prompt("Countdown name:");
-
-
-
-    if (!name) return;
-
-
-
-    const date =
-    prompt(
-        "Enter date and time:\nExample: 2027-01-01 00:00"
-    );
-
-
-
-    if (!date) return;
-
-
-
-    countdowns.push({
-
-        name: name,
-
-        date: date
-
-    });
-
-
-
-    saveCountdowns();
-
-    displayCountdowns();
-
+    door.classList.remove("opening");
 
 });
 
 
 
-displayCountdowns();
-
-setInterval(displayCountdowns, 1000);
+door.addEventListener("click", () => {
 
 
-
+    door.classList.add("opening");
 
 
 
-// NOTES SYSTEM
+    setTimeout(() => {
 
 
-const notes =
-document.getElementById("notes");
+        window.location.href =
+        "room.html";
 
 
+    },800);
 
-notes.value =
-localStorage.getItem("notes") || "";
-
-
-
-notes.addEventListener("input", () => {
-
-
-    localStorage.setItem(
-        "notes",
-        notes.value
-    );
 
 
 });
