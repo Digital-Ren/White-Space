@@ -30,7 +30,34 @@ h1 {
     transform: translate(-50%, -50%);
     transform-origin: left center;
 
+    width: 90px;
+    height: 140px;
+
+    background: white;
+    border: 4px solid black;
+
+    color: black;
+    font-family: "Omori", sans-serif;
+    font-size: 18px;
+
+    cursor: pointer;
+
     transition: transform 0.2s ease;
+}
+
+#door::after {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: black;
+    border-radius: 50%;
+    right: 12px;
+    top: 70px;
+}
+
+#door:hover {
+    transform: translate(-50%, -50%) scale(1.05);
 }
 
 #door.opening {
@@ -46,7 +73,6 @@ h1 {
         transform: translate(-50%, -50%) perspective(600px) rotateY(-80deg);
     }
 }
-
 
 #particles {
     position: fixed;

@@ -33,6 +33,11 @@ document.addEventListener("click", async () => {
 
 const door = document.getElementById("door");
 
+// Reset the door if the user returns with the Back button
+window.addEventListener("pageshow", () => {
+    door.classList.remove("opening");
+});
+
 door.addEventListener("click", () => {
     door.classList.add("opening");
 
