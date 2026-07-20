@@ -23,46 +23,29 @@ h1 {
     font-weight: normal;
 }
 
-
 #door {
     position: absolute;
-
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    transform-origin: left center;
 
-    width: 90px;
-    height: 140px;
-
-    background: white;
-    border: 4px solid black;
-
-    font-family: "Omori", sans-serif;
-    font-size: 18px;
-    color: black;
-
-    cursor: pointer;
     transition: transform 0.2s ease;
 }
 
-#door:hover {
-    transform: translate(-50%, -50%) scale(1.05);
+#door.opening {
+    animation: openDoor 0.8s forwards;
 }
 
-#door::after {
-    content: "";
-    position: absolute;
+@keyframes openDoor {
+    from {
+        transform: translate(-50%, -50%) perspective(600px) rotateY(0deg);
+    }
 
-    width: 10px;
-    height: 10px;
-
-    background: black;
-    border-radius: 50%;
-
-    right: 12px;
-    top: 70px;
+    to {
+        transform: translate(-50%, -50%) perspective(600px) rotateY(-80deg);
+    }
 }
-
 
 
 #particles {
@@ -108,30 +91,3 @@ h1 {
 
 
 
-
-#door {
-    transition: transform 0.2s ease;
-}
-
-#door:hover {
-    transform: translate(-50%, -50%) scale(1.05);
-}
-
-#door.opening {
-    animation: doorOpen 0.8s forwards;
-}
-
-@keyframes doorOpen {
-    0% {
-        transform: translate(-50%, -50%) scale(1);
-    }
-
-    50% {
-        transform: translate(-50%, -50%) scale(1.08);
-    }
-
-    100% {
-        transform: translate(-50%, -50%) scale(0);
-        opacity: 0;
-    }
-}
