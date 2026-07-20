@@ -29,3 +29,14 @@ music.volume = 0.05;
 document.addEventListener("click", async () => {
     await music.play();
 }, { once: true });
+
+
+const door = document.getElementById("door");
+
+door.addEventListener("click", () => {
+    door.classList.add("opening");
+
+    setTimeout(() => {
+        window.location.href = "room.html";
+    }, 800);
+});
